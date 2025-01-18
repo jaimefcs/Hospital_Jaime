@@ -10,7 +10,7 @@ public:
     static int buscar();
 private:
     static int generarId(const std::string& archivo);
-    static bool validarDatos(const std::string& fecha, int pacienteId, int medicoId);
+    static bool validarDatos(int pacienteId, int medicoId, const std::string& fecha);
 };
 
 #endif

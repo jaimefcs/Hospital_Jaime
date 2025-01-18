@@ -77,6 +77,63 @@ int Medico::buscar() {
     return medicoId;
 }
 
+void Medico::modificar(int id) {
+    std::ifstream archivoEntrada("medicos.csv");
+    if (!archivoEntrada) {
+        std::cerr << "Error al abrir el archivo de médicos." << std::endl;
+        return;
+    }
+
+    std::ofstream archivoSalida("medicos_temp.csv");
+    if (!archivoSalida) {
+        std::cerr << "Error al crear el archivo temporal." << std::endl;
+        return;
+    }
+
+    std::string linea;
+    bool encontrado = false;
+
+    while (std::getline(archivoEntrada, linea)) {
+        std::stringstream ss(linea);
+        std::string idStr;
+        std::getline(ss, idStr, ',');
+
+        if (idStr == std::to_string(id)) {
+            encontrado = true;
+            std::string nombre, dni;
+
+            std::cout << "Ingrese el nuevo nombre del médico: ";
+            std::getline(std::cin, nombre);
+
+            std::cout << "Ingrese el nuevo DNI del médico: ";
+            std::getline(std::cin, dni);
+
+            if (!validarDatos(nombre, dni)) {
+                std::cerr << "Datos inválidos. No se realizaron cambios." << std::endl;
+                return;
+            }
+
+            archivoSalida << id << "," << nombre << "," << dni << "\n";
+        }
+        else {
+            archivoSalida << linea << "\n";
+        }
+    }
+
+    archivoEntrada.close();
+    archivoSalida.close();
+
+    if (encontrado) {
+        std::remove("medicos.csv");
+        std::rename("medicos_temp.csv", "medicos.csv");
+        std::cout << "Médico modificado correctamente." << std::endl;
+    }
+    else {
+        std::remove("medicos_temp.csv");
+        std::cerr << "Médico no encontrado." << std::endl;
+    }
+}
+
 int Medico::generarId(const std::string& archivo) {
     std::ifstream entrada(archivo);
     std::string linea;

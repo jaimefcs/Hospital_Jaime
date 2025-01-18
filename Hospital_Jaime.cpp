@@ -22,10 +22,12 @@ void menuPrincipal() {
         std::cout << "\n--- Menú Principal ---\n";
         std::cout << "1. Registrar Médico\n";
         std::cout << "2. Buscar Médico\n";
-        std::cout << "3. Registrar Paciente\n";
-        std::cout << "4. Buscar Paciente\n";
-        std::cout << "5. Asignar Cita\n";
-        std::cout << "6. Buscar Cita\n";
+        std::cout << "3. Modificar Médico\n";
+        std::cout << "4. Registrar Paciente\n";
+        std::cout << "5. Buscar Paciente\n";
+        std::cout << "6. Modificar Paciente\n";
+        std::cout << "7. Asignar Cita\n";
+        std::cout << "8. Buscar Cita\n";
         std::cout << "0. Salir\n";
         std::cout << "Seleccione una opción: ";
         std::cin >> opcion;
@@ -42,20 +44,36 @@ void menuPrincipal() {
             }
             break;
         }
-        case 3:
+        case 3: {
+            int id;
+            std::cout << "Ingrese el ID del médico a modificar: ";
+            std::cin >> id;
+            std::cin.ignore();
+            Medico::modificar(id);
+            break;
+        }
+        case 4:
             Paciente::registrar();
             break;
-        case 4: {
+        case 5: {
             int id = Paciente::buscar();
             if (id != -1) {
                 std::cout << "ID del paciente encontrado: " << id << std::endl;
             }
             break;
         }
-        case 5:
+        case 6: {
+            int id;
+            std::cout << "Ingrese el ID del paciente a modificar: ";
+            std::cin >> id;
+            std::cin.ignore();
+            Paciente::modificar(id);
+            break;
+        }
+        case 7:
             Cita::asignar();
             break;
-        case 6: {
+        case 8: {
             int id = Cita::buscar();
             if (id != -1) {
                 std::cout << "ID de la cita encontrada: " << id << std::endl;

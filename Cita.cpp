@@ -27,10 +27,11 @@ void Cita::asignar() {
     std::cout << "Ingrese el ID del médico: ";
     std::cin >> medicoId;
 
+    std::cin.ignore(); // Ignora el salto de línea anterior
     std::cout << "Ingrese la fecha de la cita (YYYY-MM-DD): ";
-    std::cin >> fecha;
+    std::getline(std::cin, fecha);
 
-    if (!validarDatos(fecha, pacienteId, medicoId)) {
+    if (!validarDatos(pacienteId, medicoId, fecha)) {
         std::cerr << "Datos inválidos. Intente nuevamente." << std::endl;
         return;
     }
@@ -103,6 +104,6 @@ int Cita::generarId(const std::string& archivo) {
     return ultimoId + 1;
 }
 
-bool Cita::validarDatos(const std::string& fecha, int pacienteId, int medicoId) {
-    return !fecha.empty() && pacienteId > 0 && medicoId > 0;
+bool Cita::validarDatos(int pacienteId, int medicoId, const std::string& fecha) {
+    return pacienteId > 0 && medicoId > 0 && !fecha.empty();
 }
