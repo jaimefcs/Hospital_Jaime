@@ -2,11 +2,12 @@
 #include "Medico.h"
 #include "Paciente.h"
 #include "Cita.h"
+#include "Reporte.h"
 
 void menuPrincipal();
 
 int main() {
-    // Inicializamos los archivos al iniciar el programa
+    // Inicializamos los archivos de médicos, pacientes y citas al inicio
     Medico::inicializarArchivo();
     Paciente::inicializarArchivo();
     Cita::inicializarArchivo();
@@ -28,10 +29,11 @@ void menuPrincipal() {
         std::cout << "6. Modificar Paciente\n";
         std::cout << "7. Asignar Cita\n";
         std::cout << "8. Buscar Cita\n";
+        std::cout << "9. Reportes\n";  // NUEVA OPCIÓN: REPORTES
         std::cout << "0. Salir\n";
         std::cout << "Seleccione una opción: ";
         std::cin >> opcion;
-        std::cin.ignore(); // Ignoramos el salto de línea después de ingresar un número
+        std::cin.ignore(); // Ignorar el salto de línea después de ingresar un número
 
         switch (opcion) {
         case 1:
@@ -78,6 +80,10 @@ void menuPrincipal() {
             if (id != -1) {
                 std::cout << "ID de la cita encontrada: " << id << std::endl;
             }
+            break;
+        }
+        case 9: {
+            Reporte::menuReportes();
             break;
         }
         case 0:
